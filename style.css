@@ -1,0 +1,85 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #F3F3F3;
+}
+
+.top{
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    background-color: #FFFFFF;
+    height: 80px;
+    width: 100%;
+    padding: 16px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 26px;
+    box-shadow: 1px 4px 4px rgba(0, 0, 0, 0.05);
+}
+
+.top img{
+    width: 75px;
+    height: 53px;
+}
+
+.messages{
+    margin-top: 106px;
+    width: 100%;
+    border-radius: 2px;
+}
+
+.messages div {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    height: 40px;
+    font-size: 14px;
+    padding-left: 8px;
+}
+
+.messages > div {
+    margin-top: 4px;
+}
+
+.messages span{
+    font-weight: bold;
+}
+
+.public{
+    background-color: #FFFFFF;
+}
+
+.newUser{
+    background-color: #DCDCDC;
+}
+
+.private{
+    background-color: #FCDDDE;
+}
+
+.bottom{
+    position: fixed;
+    bottom: 0;
+    z-index: 1;
+    background-color: #FFFFFF;
+    height: 80px;
+    width: 100%;
+    padding: 16px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 26px;
+    box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.05)
+}
+
+.bottom input{
+    border-style: hidden;
+    outline: none;
+    font-size: 18px;
+    font-weight: 400;
+    font-style: italic;
+}
