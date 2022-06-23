@@ -64,31 +64,32 @@ function messagesbyType(){
         if(messagesPosteds[i].type === 'status'){
             let newMessage = `
                 <div class="newUser">
-                <div>(${messagesPosteds[i].time})</div>
-                <div><p> <span>${messagesPosteds[i].from}</span> ${messagesPosteds[i].text}</p></div>
-                </div>`
+                <p><span>(${messagesPosteds[i].time})</span>   <span>${messagesPosteds[i].from}</span> ${messagesPosteds[i].text}</p></div>
+                `
             container.innerHTML += newMessage
         } else if(messagesPosteds[i].type === 'message'){
             let newMessage = `
-                <div class="messages">
-                <div>(${messagesPosteds[i].time})</div>
-                <div><p> <span>${messagesPosteds[i].from}</span> para <span>${messagesPosteds[i].to}</span> ${messagesPosteds[i].text}</p></div>
-                </div>`
+                <div class="public">
+                <p><span>(${messagesPosteds[i].time})</span>   <span>${messagesPosteds[i].from}</span> para <span>${messagesPosteds[i].to}</span> ${messagesPosteds[i].text}</p></div>
+                `
             container.innerHTML += newMessage
         } else if(messagesPosteds[i].type === 'private_message'){
             let newMessage = `
                 <div class="private">
-                <div>(${messagesPosteds[i].time})</div>
-                <div><p> <span>${messagesPosteds[i].from}</span> para <span>${messagesPosteds[i].to}</span> ${messagesPosteds[i].text}</p></div>
-                </div>`
+                <p><span>(${messagesPosteds[i].time})</span>   <span>${messagesPosteds[i].from}</span> para <span>${messagesPosteds[i].to}</span> ${messagesPosteds[i].text}</p></div>
+                `
                 container.innerHTML += newMessage
         }
     }
+    let lastMessage = container.querySelector("div:nth-child(100)")
+    lastMessage.scrollIntoView()
 }
 
-function updateMessages(){
+getMessages()
+
+/*function updateMessages(){
     setInterval(getMessages, 3000)
-}
+}*/
 
 //ENVIAR MENSAGENS
 

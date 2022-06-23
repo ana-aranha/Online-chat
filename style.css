@@ -28,6 +28,7 @@ body{
 
 .messages{
     margin-top: 106px;
+    margin-bottom: 106px;
     width: 100%;
     border-radius: 2px;
 }
@@ -36,17 +37,21 @@ body{
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    height: 40px;
     font-size: 14px;
-    padding-left: 8px;
-}
-
-.messages > div {
+    height: 100%;
     margin-top: 4px;
+}
+.messages p{
+    margin: 13px 0 8px 13px;
 }
 
 .messages span{
-    font-weight: bold;
+    font-weight: 700;
+}
+
+.messages p span:nth-child(1){
+    color: #AAAAAA;
+    font-weight: 400;
 }
 
 .public{
