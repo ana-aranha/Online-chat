@@ -89,6 +89,15 @@ function updateMessages(){
 
 //ENVIAR MENSAGENS
 
+function sendWithEnter(){
+    let newMessageSend = document.querySelector("input")
+    newMessageSend.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            document.querySelector(".bottom div:nth-child(2)").click();
+            }
+      });
+}
 
 
 function newMessage(){
@@ -119,3 +128,4 @@ function reloadPage(error){
 getUserNAme()
 getMessages()
 updateMessages()
+sendWithEnter()
