@@ -40,6 +40,7 @@ body{
     font-size: 14px;
     height: 100%;
     margin-top: 4px;
+    word-break: break-all;
 }
 .messages p{
     margin: 13px 0 8px 13px;

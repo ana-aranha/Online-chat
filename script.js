@@ -3,6 +3,8 @@
 let userNAme
 let newUser
 let messagesPosteds
+let userStatus
+let newMessageDefined
 let container = document.querySelector(".messages")
 
 function getUserNAme(){
@@ -12,40 +14,35 @@ function getUserNAme(){
 }
 
 function userNameValidation(){
-    console.log(newUser) 
     let promess = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", newUser)
     promess.then(userValidated)
     promess.catch(userInvalidated)
 }
 
-function userValidated(resposta){
-    console.log(resposta)
-    console.log(resposta.status)
-    console.log("Usuário válido!")
+function userValidated(){
+    setTimeout(conected,5000)
 }
 
 function userInvalidated(error){
-    console.log(error.data)
-    console.log(error.response.status)
-    console.log(`Usuário Inválido, com erro ${error.response.status}`)
-    alert("Esse usuário já existe \n Tente um nome de usuário diferente!")
-    getUserNAme()
+    if(error.response.status === 400){
+        console.log(`Usuário Inválido, com erro ${error.response.status}`)
+        alert("Esse usuário já existe \n Tente um nome de usuário diferente!")
+        getUserNAme()
+    }
 }
 
 
 //MANTER CONEXÃO
 
-/*function keepConection(){
+function keepConection(){
     let promess = axios.post("https://mock-api.driven.com.br/api/v6/uol/status", newUser)
-    promess.then(conected)
 }
 
 function conected(){
-    console.log("Tô aquii")
-    setTimeout(keepConection, 5000)
+    setInterval(keepConection, 5000)
 }
 
-keepConection()*/
+keepConection()
 
 //BUSCAR MENSAGENS 
 
@@ -60,7 +57,8 @@ function messagesLoaded(resposta){
 }
 
 function messagesbyType(){
-    for(i=0;i<messagesPosteds.length;i++){
+    container.innerHTML = ""
+    for(i=60;i<messagesPosteds.length;i++){
         if(messagesPosteds[i].type === 'status'){
             let newMessage = `
                 <div class="newUser">
@@ -81,33 +79,43 @@ function messagesbyType(){
                 container.innerHTML += newMessage
         }
     }
-    let lastMessage = container.querySelector("div:nth-child(100)")
+    let lastMessage = container.querySelector("div:nth-child(40)") // Carregando menos mensagens, mudar pra 100 depois que incluir a lista toda
     lastMessage.scrollIntoView()
 }
 
-getMessages()
-
-/*function updateMessages(){
+function updateMessages(){
     setInterval(getMessages, 3000)
-}*/
+}
 
 //ENVIAR MENSAGENS
 
+
+
 function newMessage(){
-    let message = document.querySelector("input").value
-    let newMessage = `<div class="public">
-    <div>(${time})</div>
-    <div><p><span>Maria</span>${message}</p></div>
-    </div>`
-    container.innerHTML += newMessage
+    let newMessageSend = document.querySelector("input").value
+    newMessageDefined = {
+        from: userNAme,
+        to: "Todos",
+        text: newMessageSend,
+        type: "message"
+    }
+    sendNewMessage()
 }
 
-function getTime(){
-    let today = new Date();
-    let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+function sendNewMessage(){
+    let promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", newMessageDefined) 
+    promise.then(getMessages)
+    promise.catch(reloadPage)
+    document.querySelector("input").value=""
+}
+
+function reloadPage(error){
+    alert("Parece que você estava desconectado, vamos tentar novamente?")
+    window.location.reload()
 }
 
 
 //Chamando funções
 getUserNAme()
+getMessages()
 updateMessages()
