@@ -2,6 +2,7 @@
 
 let userNAme
 let newUser
+let activeUSers
 let messagesPosteds
 let userStatus
 let newMessageDefined
@@ -14,9 +15,9 @@ function getUserNAme(){
 }
 
 function userNameValidation(){
-    let promess = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", newUser)
-    promess.then(userValidated)
-    promess.catch(userInvalidated)
+    let promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", newUser)
+    promise.then(userValidated)
+    promise.catch(userInvalidated)
 }
 
 function userValidated(){
@@ -35,14 +36,12 @@ function userInvalidated(error){
 //MANTER CONEXÃO
 
 function keepConection(){
-    let promess = axios.post("https://mock-api.driven.com.br/api/v6/uol/status", newUser)
+    let promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/status", newUser)
 }
 
 function conected(){
     setInterval(keepConection, 5000)
 }
-
-keepConection()
 
 //BUSCAR MENSAGENS 
 
@@ -71,7 +70,7 @@ function messagesbyType(){
                 <p><span>(${messagesPosteds[i].time})</span>   <span>${messagesPosteds[i].from}</span> para <span>${messagesPosteds[i].to}</span> ${messagesPosteds[i].text}</p></div>
                 `
             container.innerHTML += newMessage
-        } else if(messagesPosteds[i].type === 'private_message' && messagesPosteds[i].to === userNAme){
+        } else if(messagesPosteds[i].type === 'private_message' && (messagesPosteds[i].to === userNAme || messagesPosteds[i].from === user)){
             let newMessage = `
                 <div class="private">
                 <p><span>(${messagesPosteds[i].time})</span>   <span>${messagesPosteds[i].from}</span> para <span>${messagesPosteds[i].to}</span> ${messagesPosteds[i].text}</p></div>
@@ -79,8 +78,8 @@ function messagesbyType(){
                 container.innerHTML += newMessage
         }
     }
-    let lastMessage = container.querySelector("div:nth-child(40)") // Carregando menos mensagens, mudar pra 100 depois que incluir a lista toda
-    lastMessage.scrollIntoView()
+    let lastMessage = container.querySelectorAll("div") // Carregando menos mensagens, mudar pra 100 depois que incluir a lista toda
+    lastMessage[lastMessage.length-1].scrollIntoView()
 }
 
 function updateMessages(){
@@ -127,8 +126,28 @@ function reloadPage(error){
 function showOptions(){
     let options = document.querySelector(".blur")
     options.classList.toggle("hidden")
+    getActiveUsers()    
 }
 
+function getActiveUsers(){
+    let promise = axios.get("https://mock-api.driven.com.br/api/v6/uol/participants")
+    promise.then(usersLoaded)
+}
+
+function usersLoaded(resposta){
+    activeUSers = resposta.data
+    console.log(activeUSers)
+    showUsers()
+}
+
+function showUsers(){
+    let userDiv = document.querySelector(".users")
+    userDiv.innerHTML = "<div><ion-icon name='people'></ion-icon> <p>Todos</p></div>"
+    for(i=0;i<activeUSers.length;i++){
+        userDiv.innerHTML += `
+        <div><ion-icon name="person-circle"></ion-icon>  <span>${activeUSers[i].name}</span></div>`
+    }
+}
 
 //Chamando funções
 getUserNAme()

@@ -23,24 +23,33 @@
         <div onclick="newMessage()"><ion-icon name="paper-plane-outline"></ion-icon></div>
     </div>
 
-    <div class="blur hidden" onclick="showOptions()">
-        <div>
+    <div class="blur hidden">
+        <div onclick="showOptions()">
             Olá
         </div>
         <div>
-            <div class="section-selection">
-                <p>Escolha um contato para enviar mensagem:</p>
+            <div>
+                <div class="section-selection">
+                    <p>Escolha um contato para enviar mensagem:</p>
+                </div>
+    
+                <div class="users">
+                    <p>TESTE</p>
+                </div>
+    
+                <div class="section-selection">
+                    <p>Escolha a visibilidade:</p>
+                </div>
+    
+                <div class="visibility">
+                    <div>
+                        <ion-icon name="lock-open"></ion-icon><p>Público</p>
+                    </div>
+                    <div>
+                        <ion-icon name="lock-closed"></ion-icon><p>Reservadamente</p>
+                    </div>
+                </div>
             </div>
-
-            <div class="users">
-            </div>
-
-            <div class="section-selection">
-                <p>Escolha a visibilidade:</p>
-            </div>
-
-            <div class="visibility"></div>
-
         </div>
     </div>
 

@@ -104,7 +104,18 @@ body{
     z-index: 3;
 }
 
-.blur > div{
+
+.blur > div:first-child{
+    width: calc(100vw - 80%);
+    height: 100%;
+    position: absolute;
+    top:0;
+    left: 0;
+    bottom: 0;
+    z-index: 4;
+}
+
+.blur > div:last-child{
     background-color: #FFFFFF;
     width: 80%;
     height: 100%;
@@ -115,11 +126,50 @@ body{
     z-index: 4;
 }
 
+.blur > div:last-child > div{
+    height: 100%;
+}
+
 .section-selection{
     font-size: 16px;
     font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
     height: 80px;
+}
+
+.users{
+    font-size: 16px;
+    font-weight: 400;
+    width: 100%;
+    height: 300px;
+    overflow-y: scroll;
+    padding: 0 20px;
+}
+
+.visibility{
+    font-size: 16px;
+    font-weight: 400;
+    width: 100%;
+    height: 200px;
+    padding: 0 20px;
+}
+
+.users div{
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.visibility div{
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.blur > div:last-child ion-icon{
+    font-size: 25px;
+    margin-right: 10px;
 }
