@@ -71,7 +71,7 @@ function messagesbyType(){
                 <p><span>(${messagesPosteds[i].time})</span>   <span>${messagesPosteds[i].from}</span> para <span>${messagesPosteds[i].to}</span> ${messagesPosteds[i].text}</p></div>
                 `
             container.innerHTML += newMessage
-        } else if(messagesPosteds[i].type === 'private_message'){
+        } else if(messagesPosteds[i].type === 'private_message' && messagesPosteds[i].to === userNAme){
             let newMessage = `
                 <div class="private">
                 <p><span>(${messagesPosteds[i].time})</span>   <span>${messagesPosteds[i].from}</span> para <span>${messagesPosteds[i].to}</span> ${messagesPosteds[i].text}</p></div>
@@ -121,6 +121,12 @@ function sendNewMessage(){
 function reloadPage(error){
     alert("Parece que você estava desconectado, vamos tentar novamente?")
     window.location.reload()
+}
+//Participantes Ativos
+
+function showOptions(){
+    let options = document.querySelector(".blur")
+    options.classList.toggle("hidden")
 }
 
 

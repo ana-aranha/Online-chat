@@ -11,7 +11,7 @@
 <body>
     <div class="top">
         <div><img src="img/logo.png" alt=""></div>
-        <div><ion-icon name="people"></ion-icon></div>
+        <div onclick="showOptions()"><ion-icon name="people"></ion-icon></div>
     </div>
 
     <div class="messages">
@@ -23,7 +23,10 @@
         <div onclick="newMessage()"><ion-icon name="paper-plane-outline"></ion-icon></div>
     </div>
 
-    <div class="blur" hidden>
+    <div class="blur hidden" onclick="showOptions()">
+        <div>
+            Olá
+        </div>
         <div>
             <div class="section-selection">
                 <p>Escolha um contato para enviar mensagem:</p>
