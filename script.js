@@ -9,9 +9,10 @@ let newMessageDefined
 let visibilityType = "Público"
 let toUser = "Todos"
 let container = document.querySelector(".messages")
+let enterChat = document.querySelector(".enterPage")
 
-function getUserNAme(){
-    userNAme = prompt("Escolha um nome de usuário")
+function getUserName(){
+    userNAme = enterChat.querySelector("input").value
     newUser = {name: userNAme}
     userNameValidation()
 }
@@ -24,14 +25,16 @@ function userNameValidation(){
 
 function userValidated(){
     setTimeout(conected,5000)
+    enterChat.classList.add("hidden")
     getMessages()
+    console.log("Oi")
 }
 
 function userInvalidated(error){
     if(error.response.status === 400){
         console.log(`Usuário Inválido, com erro ${error.response.status}`)
         alert("Esse usuário já existe \n Tente um nome de usuário diferente!")
-        getUserNAme()
+        enterChat.querySelector("input").value.innerHTML = ""
     }
 }
 
@@ -101,9 +104,9 @@ function sendWithEnter(){
       });
 }
 
-
 function newMessage(){
-    let newMessageSend = document.querySelector("input").value
+    let bottomPage = document.querySelector(".bottom")
+    let newMessageSend = bottomPage.querySelector("input").value
     if(visibilityType == 'Público'){
         newType = 'message'
     }
@@ -182,6 +185,6 @@ function selectOptionUser(element){
 }
 
 //Chamando funções
-getUserNAme()
+/*getUserNAme()*/
 updateMessages()
 sendWithEnter()
