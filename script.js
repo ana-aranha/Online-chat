@@ -6,6 +6,8 @@ let activeUSers
 let messagesPosteds
 let userStatus
 let newMessageDefined
+let visibilityType = "Público"
+let toUser = "Todos"
 let container = document.querySelector(".messages")
 
 function getUserNAme(){
@@ -22,6 +24,7 @@ function userNameValidation(){
 
 function userValidated(){
     setTimeout(conected,5000)
+    getMessages()
 }
 
 function userInvalidated(error){
@@ -70,7 +73,7 @@ function messagesbyType(){
                 <p><span>(${messagesPosteds[i].time})</span>   <span>${messagesPosteds[i].from}</span> para <span>${messagesPosteds[i].to}</span> ${messagesPosteds[i].text}</p></div>
                 `
             container.innerHTML += newMessage
-        } else if(messagesPosteds[i].type === 'private_message' && (messagesPosteds[i].to === userNAme || messagesPosteds[i].from === user)){
+        } else if(messagesPosteds[i].type === 'private_message' && (messagesPosteds[i].to === userNAme || messagesPosteds[i].from === userNAme)){
             let newMessage = `
                 <div class="private">
                 <p><span>(${messagesPosteds[i].time})</span>   <span>${messagesPosteds[i].from}</span> para <span>${messagesPosteds[i].to}</span> ${messagesPosteds[i].text}</p></div>
@@ -101,11 +104,17 @@ function sendWithEnter(){
 
 function newMessage(){
     let newMessageSend = document.querySelector("input").value
+    if(visibilityType == 'Público'){
+        newType = 'message'
+    }
+    else if(visibilityType = 'Reservadamente'){
+        newType = 'private_message'
+    }
     newMessageDefined = {
         from: userNAme,
-        to: "Todos",
+        to: toUser,
         text: newMessageSend,
-        type: "message"
+        type: newType
     }
     sendNewMessage()
 }
@@ -125,7 +134,9 @@ function reloadPage(error){
 
 function showOptions(){
     let options = document.querySelector(".blur")
+    let pageBody = document.querySelector("body")
     options.classList.toggle("hidden")
+    pageBody.classList.toggle("noScroll")
     getActiveUsers()    
 }
 
@@ -136,21 +147,41 @@ function getActiveUsers(){
 
 function usersLoaded(resposta){
     activeUSers = resposta.data
-    console.log(activeUSers)
     showUsers()
 }
 
 function showUsers(){
     let userDiv = document.querySelector(".users")
-    userDiv.innerHTML = "<div><ion-icon name='people'></ion-icon> <p>Todos</p></div>"
+    userDiv.innerHTML = "<div class='marked' onclick='selectOptionUser(this)'><ion-icon name='people'></ion-icon> <span>Todos</span></div>"
     for(i=0;i<activeUSers.length;i++){
         userDiv.innerHTML += `
-        <div><ion-icon name="person-circle"></ion-icon>  <span>${activeUSers[i].name}</span></div>`
+        <div onclick='selectOptionUser(this)'><ion-icon name="person-circle"></ion-icon>  <span>${activeUSers[i].name}</span></div>`
     }
+}
+
+// Selecionando usuário
+
+function selectOption(element){
+    let visibilityDiv = document.querySelector(".visibility")
+    let optionSelected = visibilityDiv.querySelector(".marked")
+    if(optionSelected != element){
+        optionSelected.classList.remove("marked")
+        element.classList.add("marked")
+    }
+    visibilityType = element.querySelector("p").innerHTML
+}
+
+function selectOptionUser(element){
+    let usersDiv = document.querySelector(".users")
+    let optionSelected = usersDiv.querySelector(".marked")
+    if(optionSelected != element){
+        optionSelected.classList.remove("marked")
+        element.classList.add("marked")
+    }
+    toUser = element.querySelector("span").innerHTML
 }
 
 //Chamando funções
 getUserNAme()
-getMessages()
 updateMessages()
 sendWithEnter()

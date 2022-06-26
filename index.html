@@ -25,7 +25,6 @@
 
     <div class="blur hidden">
         <div onclick="showOptions()">
-            Olá
         </div>
         <div>
             <div>
@@ -42,10 +41,10 @@
                 </div>
     
                 <div class="visibility">
-                    <div>
+                    <div class="marked" onclick="selectOption(this)">
                         <ion-icon name="lock-open"></ion-icon><p>Público</p>
                     </div>
-                    <div>
+                    <div onclick="selectOption(this)">
                         <ion-icon name="lock-closed"></ion-icon><p>Reservadamente</p>
                     </div>
                 </div>
