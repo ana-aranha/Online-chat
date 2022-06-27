@@ -10,6 +10,7 @@ let visibilityType = "Público"
 let toUser = "Todos"
 let container = document.querySelector(".messages")
 let enterChat = document.querySelector(".enterPage")
+let bottomPage = document.querySelector(".bottom")
 
 function getUserName(){
     userNAme = enterChat.querySelector("input").value
@@ -95,17 +96,24 @@ function updateMessages(){
 //ENVIAR MENSAGENS
 
 function sendWithEnter(){
-    let newMessageSend = document.querySelector("input")
+    let newMessageSend = bottomPage.querySelector("input")
+    let userInput = enterChat.querySelector("input")
     newMessageSend.addEventListener("keypress", function(event) {
         if (event.key === "Enter") {
             event.preventDefault();
             document.querySelector(".bottom div:nth-child(2)").click();
             }
-      });
+      })
+      userInput.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            document.querySelector(".enterPage button").click();
+            }
+      })
+      ;
 }
 
 function newMessage(){
-    let bottomPage = document.querySelector(".bottom")
     let newMessageSend = bottomPage.querySelector("input").value
     if(visibilityType == 'Público'){
         newType = 'message'
