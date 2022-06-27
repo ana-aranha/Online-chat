@@ -22,20 +22,19 @@ function userNameValidation(){
     let promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", newUser)
     promise.then(userValidated)
     promise.catch(userInvalidated)
-}
+    enterChat.innerHTML ="<img src='img/logo.png'><img src='img/Spinner-1s-200px.gif'><div><p>Entrando...</p></div>"}
 
 function userValidated(){
     setTimeout(conected,5000)
     enterChat.classList.add("hidden")
     getMessages()
-    console.log("Oi")
 }
 
 function userInvalidated(error){
     if(error.response.status === 400){
         console.log(`Usuário Inválido, com erro ${error.response.status}`)
         alert("Esse usuário já existe \n Tente um nome de usuário diferente!")
-        enterChat.querySelector("input").value.innerHTML = ""
+        window.location.reload()
     }
 }
 
@@ -64,7 +63,7 @@ function messagesLoaded(resposta){
 
 function messagesbyType(){
     container.innerHTML = ""
-    for(i=60;i<messagesPosteds.length;i++){
+    for(i=0;i<messagesPosteds.length;i++){
         if(messagesPosteds[i].type === 'status'){
             let newMessage = `
                 <div class="newUser">
@@ -155,8 +154,7 @@ function showOptions(){
     let options = document.querySelector(".blur")
     let pageBody = document.querySelector("body")
     options.classList.toggle("hidden")
-    pageBody.classList.toggle("noScroll")
-    getActiveUsers()    
+    pageBody.classList.toggle("noScroll") 
 }
 
 function getActiveUsers(){
@@ -204,5 +202,6 @@ function selectOptionUser(element){
 
 //Chamando funções
 updateMessages()
+setInterval(getActiveUsers, 10000)
 sendWithEnter()
 showOptionsSelected()
