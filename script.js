@@ -74,13 +74,13 @@ function messagesbyType(){
         } else if(messagesPosteds[i].type === 'message'){
             let newMessage = `
                 <div class="public">
-                <p><span>(${messagesPosteds[i].time})</span>   <span>${messagesPosteds[i].from}</span> para <span>${messagesPosteds[i].to}</span> ${messagesPosteds[i].text}</p></div>
+                <p><span>(${messagesPosteds[i].time})</span>   <span>${messagesPosteds[i].from}</span> para <span>${messagesPosteds[i].to}</span>: ${messagesPosteds[i].text}</p></div>
                 `
             container.innerHTML += newMessage
         } else if(messagesPosteds[i].type === 'private_message' && (messagesPosteds[i].to === userNAme || messagesPosteds[i].from === userNAme)){
             let newMessage = `
                 <div class="private">
-                <p><span>(${messagesPosteds[i].time})</span>   <span>${messagesPosteds[i].from}</span> para <span>${messagesPosteds[i].to}</span> ${messagesPosteds[i].text}</p></div>
+                <p><span>(${messagesPosteds[i].time})</span>   <span>${messagesPosteds[i].from}</span> para <span>${messagesPosteds[i].to}</span>: ${messagesPosteds[i].text}</p></div>
                 `
                 container.innerHTML += newMessage
         }
@@ -115,6 +115,9 @@ function sendWithEnter(){
 
 function newMessage(){
     let newMessageSend = bottomPage.querySelector("input").value
+    if(newMessageSend == ''){
+        return
+    }else{
     if(visibilityType == 'Público'){
         newType = 'message'
     }
@@ -127,7 +130,7 @@ function newMessage(){
         text: newMessageSend,
         type: newType
     }
-    sendNewMessage()
+    sendNewMessage()}
 }
 
 function sendNewMessage(){
@@ -163,10 +166,10 @@ function usersLoaded(resposta){
 
 function showUsers(){
     let userDiv = document.querySelector(".users")
-    userDiv.innerHTML = "<div class='marked' onclick='selectOptionUser(this)'><ion-icon name='people'></ion-icon> <span>Todos</span></div>"
+    userDiv.innerHTML = "<div class='marked' onclick='selectOptionUser(this)'><ion-icon name='people'></ion-icon> <span>Todos</span><ion-icon class='check hidden' name='checkmark'></ion-icon></div>"
     for(i=0;i<activeUSers.length;i++){
         userDiv.innerHTML += `
-        <div onclick='selectOptionUser(this)'><ion-icon name="person-circle"></ion-icon>  <span>${activeUSers[i].name}</span></div>`
+        <div onclick='selectOptionUser(this)'><ion-icon name="person-circle"></ion-icon>  <span>${activeUSers[i].name}</span><ion-icon class='check hidden' name='checkmark'></ion-icon></div>`
     }
 }
 
@@ -193,6 +196,5 @@ function selectOptionUser(element){
 }
 
 //Chamando funções
-/*getUserNAme()*/
 updateMessages()
 sendWithEnter()

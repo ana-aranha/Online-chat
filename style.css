@@ -49,6 +49,7 @@ body{
 
 .messages p{
     margin: 13px 0 8px 13px;
+    line-height: 20px;
 }
 
 .messages span{
@@ -176,10 +177,6 @@ body{
     margin-right: 10px;
 }
 
-.marked{
-    background-color: lightpink;
-}
-
 
 .enterPage{
     background-color:#FFFFFF;
@@ -231,3 +228,17 @@ body{
 .hidden{
     display: none;
     }
+    
+.marked{
+    background-color:#DCDCDC;
+    position: relative;
+}
+    
+.marked ion-icon.check{
+    color: #32B72F;
+    font-size: 8px;
+    position: absolute;
+    right: 10px;
+    top: 0px;    
+    display: initial;
+}
