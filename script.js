@@ -113,6 +113,11 @@ function sendWithEnter(){
       ;
 }
 
+function showOptionsSelected(){
+    let destiny = document.querySelector(".bottom > div:last-child")
+    destiny.innerHTML = `Enviando para ${toUser} (${visibilityType})`
+}
+
 function newMessage(){
     let newMessageSend = bottomPage.querySelector("input").value
     if(newMessageSend == ''){
@@ -183,6 +188,7 @@ function selectOption(element){
         element.classList.add("marked")
     }
     visibilityType = element.querySelector("p").innerHTML
+    showOptionsSelected()
 }
 
 function selectOptionUser(element){
@@ -193,8 +199,10 @@ function selectOptionUser(element){
         element.classList.add("marked")
     }
     toUser = element.querySelector("span").innerHTML
+    showOptionsSelected()
 }
 
 //Chamando funções
 updateMessages()
 sendWithEnter()
+showOptionsSelected()
